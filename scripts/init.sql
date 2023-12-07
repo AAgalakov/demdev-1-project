@@ -22,14 +22,14 @@ CREATE TABLE airport
     id        uuid    not null
         constraint airport_pk
             primary key,
-    name      integer not null,
-    longitude integer not null,
-    width     integer not null
+    name      varchar not null,
+    longitude numeric not null,
+    latitude  numeric not null
 );
 
 CREATE TABLE airplane_type
 (
-    id         uuid    not null
+    id         serial
         constraint airplane_type_pk
             primary key,
     brand_name varchar not null,
@@ -42,11 +42,10 @@ CREATE TABLE airplane
     id               uuid    not null
         constraint airplane_pk
             primary key,
-    name             varchar not null,
-    airplane_type_id uuid    not null
+    register_number  varchar not null,
+    airplane_type_id integer
         constraint airplane_airplane_type_id_fk
-            references airplane_type,
-    register_number  varchar not null
+            references airplane_type
 );
 
 CREATE TABLE flight
@@ -62,7 +61,7 @@ CREATE TABLE flight
             references airport,
     departure_time   timestamp not null,
     arrival_time     timestamp not null,
-    airplane_type_id uuid      not null
+    airplane_type_id integer
         constraint flight_airplane_type_id_fk
             references airplane_type
 );
